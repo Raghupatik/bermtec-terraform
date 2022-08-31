@@ -29,8 +29,9 @@ pipeline {
 
     stage('apply') {
       steps {
-        input 'Apply ?'
-        sh "terraform apply -var-file='${varfile}' --auto-approve"
+        def xy = input (message:'Apply ?', ok: 'Yes') 
+        echo "Text: " + xy
+        sh "terraform apply -var-file='${varfile}'"
         echo 'Apply done'
       }
     }
@@ -38,7 +39,7 @@ pipeline {
      stage('destroy') {
       steps {
         input 'Destroy ?'
-        sh "terraform destroy -var-file='${varfile}' --auto-approve"
+        sh "terraform destroy -var-file='${varfile}'"
         echo 'Destroy done'
       }
     }
