@@ -29,10 +29,12 @@ pipeline {
 
     stage('apply') {
       steps {
-        def xy = input (message:'Apply ?', ok: 'Yes') 
-        echo "Text: " + xy
-        sh "terraform apply -var-file='${varfile}'"
-        echo 'Apply done'
+        script {
+          def xy = input (message:'Apply ?', ok: 'Yes') 
+          echo "Text: " + xy
+          sh "terraform apply -var-file='${varfile}'"
+          echo 'Apply done'
+        }
       }
     }
 
