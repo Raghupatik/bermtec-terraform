@@ -3,12 +3,12 @@ variable "key_name" {
   default = "Test"
 }
 
-variable "key" {
+variable "access_key" {
   type        = string
   description = "AWS Access Key"
 }
 
-variable "secret" {
+variable "secret_key" {
   type = string
   nullable = false
 }
@@ -20,4 +20,4 @@ variable "ami" {
 variable "instance_type" {}
 variable "instance_name" {}
 
-variable "region" {}
+variable "location" {}

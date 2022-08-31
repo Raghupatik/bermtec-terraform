@@ -1,65 +1,34 @@
+#Create security group with firewall rules
+resource "aws_security_group" "my_security_group" {
+  name        = "default-1"
+  description = "security group for Ec2 instance"
 
-provider "aws" {
-  access_key = var.key
-  secret_key = var.secret
-  region     = var.region
-}
-
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "4.14.0"
-    }
+  ingress {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
-  # backend "s3" {
-  #   bucket = "my-cistestbucket-2788"
-  #   key    = "test/terraform.tfstate"
-  #   region = "us-west-2"
-  # }
+ ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+ # outbound from jenkis server
+  egress {
+    from_port   = 0
+    to_port     = 65535
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags= {
+    Name = "default-1"
+  }
 }
-
-
-# resource "tls_private_key" "example" {
-#   algorithm = "RSA"
-#   rsa_bits  = 4096
-# }
-
-# resource "aws_key_pair" "generated_key" {
-#   key_name   = var.key_name
-#   public_key = tls_private_key.example.public_key_openssh
-
-#   provisioner "local-exec" {    # Generate "terraform-key-pair.pem" in current directory
-#     interpreter = ["bash", "-c"]
-#     command = <<-EOT
-#       echo '${tls_private_key.example.private_key_pem}' > ./'${var.key_name}'.pem
-#       sudo chmod 400 ./'${var.key_name}'.pem
-#     EOT
-#   }
-# }
-
-
-# data "aws_vpc" "selected" {
-#   filter {
-#     name   = "tag:Name"
-#     values = ["terraform-demo-vpc"]
-#   }
-# }
-
-# data "aws_subnet" "selected" {
-#   filter {
-#     name   = "tag:Name"
-#     values = ["terraform-subnet_1"]
-#   }
-# }
-
-# data "aws_security_group" "selected" {
-#   filter {
-#     name   = "tag:Name"
-#     values = ["ec2-sg1"]
-#   }
-# }
 
 resource "aws_instance" "terraform_wapp" {
   ami                         = var.ami
