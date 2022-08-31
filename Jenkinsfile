@@ -30,7 +30,7 @@ pipeline {
     stage('apply') {
       steps {
         input 'Apply ?'
-        sh "terraform apply -var-file='${varfile}'"
+        sh "terraform apply -var-file='${varfile}' --auto-approve"
         echo 'Apply done'
       }
     }
@@ -38,8 +38,8 @@ pipeline {
      stage('destroy') {
       steps {
         input 'Destroy ?'
-        sh "terraform destroy -var-file='${varfile}'"
-          echo 'Destroy done'
+        sh "terraform destroy -var-file='${varfile}' --auto-approve"
+        echo 'Destroy done'
       }
     }
   }
