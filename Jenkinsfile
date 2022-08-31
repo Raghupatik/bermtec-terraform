@@ -21,14 +21,14 @@ pipeline {
 
     stage('plan') {
       steps {
-        sh terraform plan -var-file="${varfile}"
+        sh "terraform plan -var-file='${varfile}'"
       }
     }
 
     stage('apply') {
       steps {
         input 'Apply Plan'
-        sh terraform apply -var-file="${varfile}"
+        sh "terraform apply -var-file='${varfile}'"
       }
     }
   }
