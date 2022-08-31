@@ -31,5 +31,12 @@ pipeline {
         sh "terraform apply -var-file='${varfile}'"
       }
     }
+
+     stage('apply') {
+      steps {
+        input 'Apply Destroy'
+        sh "terraform destroy -var-file='${varfile}'"
+      }
+    }
   }
 }
