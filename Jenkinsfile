@@ -16,26 +16,30 @@ pipeline {
     stage('Init') {
       steps {
         sh "terraform init"
+        echo 'Initialization done'
       }
     }
 
     stage('plan') {
       steps {
         sh "terraform plan -var-file='${varfile}'"
+        echo 'plan done'
       }
     }
 
     stage('apply') {
       steps {
-        input 'Apply Plan'
+        input 'Apply ?'
         sh "terraform apply -var-file='${varfile}'"
+        echo 'Apply done'
       }
     }
 
-     stage('apply') {
+     stage('destroy') {
       steps {
-        input 'Apply Destroy'
+        input 'Destroy ?'
         sh "terraform destroy -var-file='${varfile}'"
+          echo 'Destroy done'
       }
     }
   }
