@@ -30,9 +30,9 @@ pipeline {
     stage('apply') {
       steps {
         script {
-          def xy = input (message:'Apply ?', ok: 'Yes') 
+          def xy = input(message:'Apply ?', ok: 'Yes') 
           echo "Text: " + xy
-          sh "terraform apply -var-file='${varfile}'"
+          sh "terraform apply -var-file='${varfile}' --auto-approve"
           echo 'Apply done'
         }
       }
@@ -41,7 +41,7 @@ pipeline {
      stage('destroy') {
       steps {
         input 'Destroy ?'
-        sh "terraform destroy -var-file='${varfile}'"
+        sh "terraform destroy -var-file='${varfile}' --auto-approve"
         echo 'Destroy done'
       }
     }
