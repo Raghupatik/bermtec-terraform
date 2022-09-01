@@ -35,7 +35,7 @@ resource "aws_vpc" "vpc" {
    tags = {
     Name = "Second VPC"
   }
-  cidr_block = "10.0.0.1/20"
+  cidr_block = "10.0.0.0/20"
 }
 
 resource "aws_subnet" "name" {
