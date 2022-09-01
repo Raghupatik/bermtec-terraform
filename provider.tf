@@ -17,7 +17,7 @@ terraform {
   
   backend "s3" {
     bucket = "terraformstatebermtec"
-    key    = "Test/terraform.tfstate"
+    key    = ""
     region = "us-east-1"
   }
 }

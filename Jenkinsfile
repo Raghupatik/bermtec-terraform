@@ -4,7 +4,6 @@ pipeline {
   parameters {
     password (name: 'AWS_ACCESS_KEY_ID')
     password (name: 'AWS_SECRET_ACCESS_KEY')
-    string(description: 'storage account to store tfstate', name: TF_BACKEND_ACCOUNT)
   }
 
   environment {
@@ -12,7 +11,7 @@ pipeline {
     AWS_ACCESS_KEY_ID = "${params.AWS_ACCESS_KEY_ID}"
     AWS_SECRET_ACCESS_KEY = "${params.AWS_SECRET_ACCESS_KEY}"
     TF_BACKEND_ACCOUNT = "${params.TF_BACKEND_ACCOUNT}"
-    TF_BACKEND_KEY = "${params.ENVIRONMENT}/terraform.tfstate"
+    TF_BACKEND_KEY = "terraform.{${params.ENVIRONMENT}.tfstate"
   }
 
   stages {
