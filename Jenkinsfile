@@ -12,6 +12,7 @@ pipeline {
     AWS_SECRET_ACCESS_KEY = "${params.AWS_SECRET_ACCESS_KEY}"
     TF_BACKEND_ACCOUNT = "${params.TF_BACKEND_ACCOUNT}"
     TF_BACKEND_KEY = "terraform.${params.ENVIRONMENT}.tfstate"
+    TF_BACKEND_LOCATION = "us-east-1"
   }
 
   stages {
