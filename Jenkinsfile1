@@ -1,0 +1,38 @@
+pipeline {
+  agent any
+
+  environment {
+    varfile = "config\${params.ENVIRONMENT}.tfvars"
+    AWS_ACCESS_KEY_ID = "${params.ACCESS_KEY}"
+    AWS_SECRET_ACCESS_KEY = "${params.SECRET_KEY}"
+  }
+
+  stages {
+    stage('Init') {
+      steps {
+        sh "terraform init"
+      }
+    }
+
+     stage('Plan') {
+      steps {
+        sh "terraform plan -var-file=${varfile}"
+      }
+    }
+
+     stage('Apply') {
+      steps {
+        input 'Apply ?'
+        sh "terraform apply -var-file=${varfile} --auto-approve"
+      }
+    }
+
+     stage('destroy') {]]]
+      steps {
+        input 'Destroy ?'
+        sh "terraform destroy -var-file=${varfile} --auto-approve"
+      }
+    }
+  }
+
+}
